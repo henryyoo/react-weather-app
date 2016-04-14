@@ -1,0 +1,19 @@
+{
+  "name": "reactweatherapp",
+  "version": "1.0.0",
+  "description": "an app for displaying weather",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/henryyoo/react-weather-app.git"
+  },
+  "author": "Henry Yoo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/henryyoo/react-weather-app/issues"
+  },
+  "homepage": "https://github.com/henryyoo/react-weather-app#readme"
+}
