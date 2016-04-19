@@ -1,7 +1,11 @@
 var React = require('react');
 var WeatherHelper = require('../helpers/api');
 var Forecast = require('../components/Forecast');
+
 var ForecastContainer = React.createClass({
+  contextTypes:{
+    router: React.PropTypes.object.isRequired
+  },
   getInitialState: function(){
     return {
         loading:true,
@@ -13,21 +17,33 @@ var ForecastContainer = React.createClass({
       .then(function(response){
         this.setState({
           loading:false,
-          data:response.list
+          data:response
         });
+        console.log(response);
       }.bind(this));
+  },
+  handleSubmitDetails: function(item){
+    this.context.router.push({
+        pathname: '/details/' + this.props.routeParams.city,
+        state:{
+          item : item
+        }
+    });
   },
   render : function(){
     if(this.state.loading){
       return <div>Loading...</div>
     } else {
       return (
-        <div className='row' >
-        {
-          this.state.data.map(function(item){
-            return <Forecast key={item.dt} image={item.weather[0].icon}
-            date={item.dt}/>
-        })}
+        <div>
+          <h1 className='text-center'>{this.state.data.city.name}</h1>
+          <br />
+          <div className='row' >
+          {
+            this.state.data.list.map(function(item){
+              return <Forecast key={item.dt} item={item} onSubmitDetails={this.handleSubmitDetails.bind(null,item)}/>
+          }.bind(this))}
+          </div>
         </div>
       )
       };
