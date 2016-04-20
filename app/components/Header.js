@@ -1,6 +1,25 @@
 var React = require('react');
 var style = require('../styles/text')
-function Header(props){
+var Header = React.createClass({
+  contextTypes:{
+    router: React.PropTypes.object.isRequired
+  },
+  getInitialState: function(){
+    return {
+      city:''
+    }
+  },
+  handleUpdateCity:function(event){
+    this.setState({
+      city: event.target.value
+    });
+  },
+  handleSubmitCity:function(e){
+    this.context.router.push({
+      pathname: '/forecast/' + this.state.city
+    });
+  },
+  render: function(){
   return (
   <nav className="navbar navbar-default" style={style.header}>
     <div className="container-fluid" >
@@ -9,13 +28,14 @@ function Header(props){
       </div>
       <form className="navbar-form navbar-right" role="search">
         <div className="form-group">
-          <input type="text" className="form-control" placeholder="Dallas, Texas" />
+          <input type="text" className="form-control" placeholder="Dallas, Texas" onChange={this.handleUpdateCity}/>
         </div>
-        <button type="submit" className="btn btn-default btn-success">Leggo</button>
+        <button type="submit" onClick={this.handleSubmitCity} className="btn btn-default btn-success">Leggo</button>
       </form>
     </div>
   </nav>
   )
 }
+});
 
 module.exports = Header;
